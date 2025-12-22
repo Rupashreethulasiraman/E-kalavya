@@ -1,0 +1,171 @@
+﻿export const COURSE_BOARDS = [
+  {
+  board: "Matric Board",
+  description: "Tamil Nadu Matriculation syllabus with strong fundamentals",
+  color: "from-yellow-500 to-yellow-600",
+  courses: [
+    {
+      title: "Matric Class 9",
+      slug: "matric-class-9",
+      subjects: ["English", "Maths", "Science", "Social"],
+      price: 6500,
+    },
+    {
+      title: "Matric Class 10",
+      slug: "matric-class-10",
+      subjects: ["English", "Maths", "Science", "Social"],
+      price: 7500,
+    },
+    {
+      title: "Matric Class 11",
+      slug: "matric-class-11",
+      subjects: [
+        "Physics",
+        "Chemistry",
+        "Maths",
+        "Biology",
+        "Accountancy",
+        "Business Studies",
+      ],
+      price: 9500,
+    },
+    {
+      title: "Matric Class 12",
+      slug: "matric-class-12",
+      subjects: [
+        "Physics",
+        "Chemistry",
+        "Maths",
+        "Biology",
+        "Accountancy",
+        "Business Studies",
+      ],
+      price: 10500,
+    },
+  ],
+}
+
+,{
+    board: "CBSE Board",
+    description: "Structured learning aligned with CBSE curriculum",
+    color: "from-violet-600 to-indigo-600",
+    courses: [
+      {
+        slug: "cbse-class-9",
+        title: "Class 9",
+        price: 6000,
+        subjects: ["English", "Maths", "Science", "Social"],
+      },
+      {
+        slug: "cbse-class-10",
+        title: "Class 10",
+        price: 7000,
+        subjects: ["English", "Maths", "Science", "Social"],
+      },
+      {
+        slug: "cbse-class-11",
+        title: "Class 11",
+        price: 9000,
+        subjects: [
+          "Physics",
+          "Chemistry",
+          "Maths",
+          "Biology",
+          "Accountancy",
+          "Business Studies",
+        ],
+      },
+      {
+        slug: "cbse-class-12",
+        title: "Class 12",
+        price: 10000,
+        subjects: [
+          "Physics",
+          "Chemistry",
+          "Maths",
+          "Biology",
+          "Accountancy",
+          "Business Studies",
+        ],
+      },
+    ],
+  },
+
+  {
+    board: "ICSE Board",
+    description: "Concept-focused ICSE syllabus with deep understanding",
+    color: "from-emerald-600 to-teal-600",
+    courses: [
+      {
+        slug: "icse-class-9",
+        title: "Class 9",
+        price: 6500,
+        subjects: ["English", "Maths", "Science", "Social"],
+      },
+      {
+        slug: "icse-class-10",
+        title: "Class 10",
+        price: 7500,
+        subjects: ["English", "Maths", "Science", "Social"],
+      },
+      {
+        slug: "icse-class-11",
+        title: "Class 11",
+        subjects: [
+          "Physics",
+          "Chemistry",
+          "Maths",
+          "Biology",
+          "Accountancy",
+          "Business Studies",
+        ],
+        price: 9500,
+      },
+       {
+        slug: "icse-class-12",
+        title: "Class 12",
+        subjects: [
+          "Physics",
+          "Chemistry",
+          "Maths",
+          "Biology",
+          "Accountancy",
+          "Business Studies",
+        ],
+        price: 10500,
+      },
+    ],
+  },
+
+  {
+    board: "Competitive Exams",
+    description: "Early preparation for competitive exams",
+    color: "from-orange-500 to-red-500",
+    courses: [
+      {
+        slug: "jee",
+        title: "JEE",
+        price: 15000,
+        subjects: ["Physics", "Chemistry", "Maths"],
+      },
+      {
+        slug: "neet",
+        title: "NEET",
+        price: 15000,
+        subjects: ["Physics", "Chemistry", "Biology"],
+      },
+      {
+        slug: "foundation",
+        title: "FOUNDATION",
+        price: 8000,
+        subjects: [
+          "Physics",
+          "Chemistry",
+          "Maths",
+          "Biology",
+          "Mental Ability",
+        ],
+      },
+    ],
+  },
+];
