@@ -27,7 +27,7 @@ export default function CourseCard({ course }: CourseCardProps) {
      SAFE DISPLAY VALUES
      =============================== */
   const priceText =
-    typeof course.price === "number" ? `₹${course.price}` : "Contact";
+    typeof course.pricing?.monthly === "number" ? `₹${course.pricing.monthly}` : "Contact";
 
   const durationText =
     typeof course.duration === "string" ? course.duration : "TBA";

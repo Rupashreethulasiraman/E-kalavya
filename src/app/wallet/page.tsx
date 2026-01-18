@@ -1,12 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import { getWalletBalance, addToWallet } from "@/lib/walletClient";
 import { enrollWithWallet } from "@/lib/enrollmentClient";
 
-export default function WalletPage() {
+function WalletContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
@@ -21,9 +22,11 @@ export default function WalletPage() {
 
   /* ================= LOAD WALLET ================= */
   useEffect(() => {
-    if (!user) return;
-
     async function loadWallet() {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
       const bal = await getWalletBalance(user.uid);
       setBalance(bal);
       setLoading(false);
@@ -151,5 +154,13 @@ export default function WalletPage() {
 
       </div>
     </main>
+  );
+}
+
+export default function WalletPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <WalletContent />
+    </Suspense>
   );
 }

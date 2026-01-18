@@ -166,7 +166,7 @@ const slug = params.slug;
                     <div className="space-y-4 mb-6 pb-6 border-b">
                       <div className="flex justify-between">
                         <span className="text-gray-700">Course Fee</span>
-                        <span className="font-semibold">₹{course.price}</span>
+                        <span className="font-semibold">₹{course.pricing.monthly}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-700">Duration</span>
@@ -177,7 +177,8 @@ const slug = params.slug;
                     <div className="flex justify-between mb-6">
                       <span className="text-lg font-semibold">Total</span>
                       <span className="text-lg font-bold text-blue-600">
-                        ₹{course.price}
+                        ₹{course.pricing.monthly
+}
                       </span>
                     </div>
 

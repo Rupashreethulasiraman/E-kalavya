@@ -7,16 +7,20 @@ export type CourseDoc = {
   title: string;
   short: string;
   long?: string;
+
+  instructor: string; // ✅ REQUIRED (FIX)
+
   pricing: {
     monthly: number;
     annual: number;
   };
+
   duration?: string;
   difficulty?: string;
   category?: string;
   syllabus: string[];
+  thumbnail?: string;
 };
-
 
 /* ================= GET SINGLE COURSE ================= */
 export async function getCourse(slug: string): Promise<CourseDoc | null> {

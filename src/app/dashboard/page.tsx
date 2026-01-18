@@ -18,17 +18,21 @@ export default function DashboardPage() {
   const [walletLoading, setWalletLoading] = useState(true);
 
   /* ================= FETCH WALLET ================= */
-  useEffect(() => {
-    if (!user) return;
-
-    async function fetchWallet() {
-      const balance = await getWalletBalance(user.uid);
-      setWalletBalance(balance);
+ useEffect(() => {
+  async function fetchWallet() {
+    if (!user) {
       setWalletLoading(false);
+      return;
     }
 
-    fetchWallet();
-  }, [user]);
+    const balance = await getWalletBalance(user.uid);
+    setWalletBalance(balance);
+    setWalletLoading(false);
+  }
+
+  fetchWallet();
+}, [user]);
+
 
   /* ================= HELPERS ================= */
   const getCourseDetails = (slug: string) => {

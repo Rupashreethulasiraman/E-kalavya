@@ -28,7 +28,7 @@ export default function BookDemoPage() {
       setLoading(true);
 
       await bookDemo(
-        user.uid, // ✅ REQUIRED for security
+        user.uid,
         name,
         email,
         course

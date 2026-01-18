@@ -6,6 +6,7 @@ import {
   where,
   onSnapshot,
   Timestamp,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebaseClient"; // ✅ CORRECT
 import { useEffect, useState } from "react";
@@ -21,6 +22,8 @@ export type Enrollment = {
   userEmail: string;
   purchasedAt: Timestamp;
   status: "active" | "completed" | "cancelled";
+  plan?: "monthly" | "annual";
+  price?: number;
 };
 
 

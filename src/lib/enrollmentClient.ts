@@ -5,9 +5,8 @@ export async function enrollWithWallet(
   userId: string,
   userEmail: string,
   courseSlug: string,
-  coursePrice: number,
-  amount: number,
-  plan: "monthly" | "annual",
+  price: number,
+  plan: "monthly" | "annual"
 ) {
   try {
     await runTransaction(db, async (transaction) => {
@@ -21,13 +20,13 @@ export async function enrollWithWallet(
 
       const balance = walletSnap.data().balance ?? 0;
 
-      if (balance < coursePrice) {
+      if (balance < price) {
         throw new Error("Insufficient wallet balance");
       }
 
       /* ================= DEDUCT MONEY ================= */
       transaction.update(walletRef, {
-        balance: balance - coursePrice,
+        balance: balance - price,
         updatedAt: serverTimestamp(),
       });
 
@@ -38,6 +37,8 @@ export async function enrollWithWallet(
         userId,
         userEmail,
         courseSlug,
+        plan, // ✅ store plan
+        price, // ✅ store paid amount
         status: "active",
         purchasedAt: serverTimestamp(),
       });

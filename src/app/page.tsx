@@ -4,16 +4,28 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { bookDemo } from "@/lib/bookingClient";
 import Image from "next/image";
+import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 
 export default function Home() {
+  const { user } = useAuth();
+  const router = useRouter();
+
   async function handleDemoSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    if (!user) {
+      alert("Please login to book a demo");
+      router.push("/login");
+      return;
+    }
+
     try {
       await bookDemo(
+        user.uid,
         formData.get("name") as string,
         formData.get("email") as string,
         formData.get("course") as string
