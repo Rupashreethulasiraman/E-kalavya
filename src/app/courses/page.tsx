@@ -39,9 +39,7 @@ export default function CoursesPage() {
       {[
         "JEE",
         "NEET",
-        "CBSE Maths",
-        "Physics",
-        "Chemistry",
+        "CBSE Tution",
         "Foundation",
       ].map((course) => (
         <div

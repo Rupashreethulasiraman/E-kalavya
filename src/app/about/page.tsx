@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function AboutFounder() {
@@ -26,9 +27,7 @@ export default function AboutFounder() {
 
           <p className="text-gray-700 leading-relaxed mb-4">
             My journey began not in a boardroom, but in a small classroom filled
-            with curious minds and endless questions. Over the years, I’ve seen
-            many students lose confidence not because they lacked talent, but
-            because they didn’t receive the right guidance at the right time.
+            with curious minds and endless questions.
           </p>
 
           <p className="italic text-violet-700 font-medium mb-4">
@@ -37,17 +36,25 @@ export default function AboutFounder() {
           </p>
 
           <p className="text-gray-700 leading-relaxed mb-6">
-            At E-Kalavya, we build a learning space that listens — where
-            questions are encouraged, mistakes are part of growth, and every
-            child feels confident and capable of excellence.
+            At E-Kalavya, we build a learning space that listens — where questions
+            are encouraged, mistakes are part of growth, and every child feels
+            confident and capable of excellence.
           </p>
 
           <p className="font-semibold text-gray-900">
             — Banupriya Sathishkumar, M.Sc., B.Ed., CMT, CFD
           </p>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 mb-6">
             Founder & Chief Mentor, E-Kalavya
           </p>
+
+          {/* 👉 Inspiration Link */}
+          <Link
+            href="/inspiration"
+            className="inline-block mt-4 text-violet-700 font-semibold underline underline-offset-4 hover:text-violet-900 transition"
+          >
+            My Inspiration →
+          </Link>
         </div>
 
         {/* RIGHT IMAGE */}

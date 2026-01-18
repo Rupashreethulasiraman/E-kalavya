@@ -124,7 +124,7 @@ export default function Home() {
             <div className="flex justify-center md:justify-end">
              <div className="flex justify-center md:justify-end">
   <Image
-    src="/founder.png"
+    src="/group.png"
     alt="Expert Academic Counsellor"
     width={320}
     height={320}

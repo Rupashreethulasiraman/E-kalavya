@@ -47,7 +47,6 @@ export default function StudyMaterialsPage() {
           </h1>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Curated study materials prepared by our expert teachers.
-            Materials are shared personally on request.
           </p>
         </div>
 
