@@ -42,3 +42,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+scripts/seed/serviceAccountKey.json
+scripts/seed/
+.env.local
