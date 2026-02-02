@@ -1,20 +1,34 @@
 export default function ShippingPolicy() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16 space-y-6">
-      <h1 className="text-3xl font-bold">Service Delivery Policy</h1>
+    <main className="max-w-4xl mx-auto px-6 py-16 space-y-6 bg-white">
 
-      <p>
-        EkalaVya is an online education platform. We do not ship physical goods.
+      <h1 className="text-3xl font-bold text-gray-900">
+        Service Delivery Policy
+      </h1>
+
+      <p className="text-gray-700 leading-relaxed">
+        EkalaVya is an{" "}
+        <span className="font-semibold text-gray-900">
+          online education platform
+        </span>. We do not ship any physical goods.
       </p>
 
-      <p>
-        Access to courses and services is provided digitally via our platform
-        immediately after successful payment.
+      <p className="text-gray-700 leading-relaxed">
+        Access to courses and services is provided{" "}
+        <span className="font-semibold text-gray-900">
+          digitally
+        </span>{" "}
+        through our platform immediately after successful payment.
       </p>
 
-      <p>
-        If you face access issues, contact support@ekalavya.com.
+      <p className="text-gray-700 leading-relaxed">
+        If you experience any issues accessing your purchased services,
+        please contact us at{" "}
+        <span className="font-semibold text-violet-700">
+          support@ekalavya.com
+        </span>.
       </p>
+
     </main>
   );
 }

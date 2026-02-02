@@ -1,20 +1,32 @@
 export default function RefundPolicy() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-16 space-y-6">
-      <h1 className="text-3xl font-bold">Refund & Cancellation Policy</h1>
+    <main className="max-w-4xl mx-auto px-6 py-16 space-y-6 bg-white">
 
-      <p>
-        Refund requests must be made within 7 days of purchase if the course
-        has not been accessed.
+      <h1 className="text-3xl font-bold text-gray-900">
+        Refund & Cancellation Policy
+      </h1>
+
+      <p className="text-gray-700 leading-relaxed">
+        Refund requests must be made within{" "}
+        <span className="font-semibold text-gray-900">7 days</span> of purchase,
+        provided the course has not been accessed.
       </p>
 
-      <p>
-        No refunds will be issued once course access has been granted.
+      <p className="text-gray-700 leading-relaxed">
+        Once course access has been granted,{" "}
+        <span className="font-semibold text-gray-900">
+          no refunds will be issued
+        </span>.
       </p>
 
-      <p>
-        Refunds are processed within 7–10 working days.
+      <p className="text-gray-700 leading-relaxed">
+        Approved refunds will be processed within{" "}
+        <span className="font-semibold text-gray-900">
+          7–10 working days
+        </span>{" "}
+        to the original payment method.
       </p>
+
     </main>
   );
 }
