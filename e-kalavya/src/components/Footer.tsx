@@ -22,20 +22,52 @@ export default function Footer() {
             <li><Link href="/">Home</Link></li>
             <li><Link href="/courses">Courses</Link></li>
             <li><Link href="/book-demo">Book Demo</Link></li>
-            <li><Link href="/study-material">Study Materials</Link></li>
+            <li><Link href="/study-materials">Study Materials</Link></li>
           </ul>
         </div>
 
         {/* COMPANY */}
-        <div>
-          <h4 className="font-bold text-lg mb-4">Company</h4>
-          <ul className="space-y-2 text-purple-200">
-            <li><Link href="/about">About Us</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-            <li><Link href="/privacy">Privacy Policy</Link></li>
-            <li><Link href="/terms">Terms & Conditions</Link></li>
-          </ul>
-        </div>
+<div>
+  <h4 className="font-bold text-lg mb-4">Company</h4>
+  <ul className="space-y-2 text-purple-200">
+    <li>
+      <Link href="/about" className="hover:text-white transition">
+        About Us
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/contact" className="hover:text-white transition">
+        Contact
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/privacy-policy" className="hover:text-white transition">
+        Privacy Policy
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/terms-and-conditions" className="hover:text-white transition">
+        Terms & Conditions
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/refund-policy" className="hover:text-white transition">
+        Refund Policy
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/shipping-policy" className="hover:text-white transition">
+        Shipping Policy
+      </Link>
+    </li>
+  </ul>
+</div>
+
 
         {/* CONTACT */}
         <div>
