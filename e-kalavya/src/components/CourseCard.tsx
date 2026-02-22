@@ -1,118 +1,150 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { CourseDoc } from "@/lib/firestoreClient";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
-interface CourseCardProps {
-  course: CourseDoc;
-}
+export default function Header() {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
-export default function CourseCard({ course }: CourseCardProps) {
-  /* ===============================
-     SAFELY NORMALIZE SYLLABUS
-     =============================== */
-  let syllabus: string[] = [];
+  const linkClass = (active: boolean) =>
+    `transition-all duration-300 font-semibold text-sm ${
+      active
+        ? "text-violet-700 border-b-2 border-violet-700 pb-0.5"
+        : "text-slate-700 hover:text-violet-700"
+    }`;
 
-  if (Array.isArray(course.syllabus)) {
-    syllabus = course.syllabus;
-  } else if (course.syllabus != null) {
-    syllabus = String(course.syllabus)
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
-  }
-
-  /* ===============================
-     SAFE DISPLAY VALUES
-     =============================== */
-  const priceText =
-    typeof course.pricing?.monthly === "number" ? `₹${course.pricing.monthly}` : "Contact";
-
-  const durationText =
-    typeof course.duration === "string" ? course.duration : "TBA";
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/courses", label: "Courses" },
+    { href: "/book-demo", label: "Book Demo" },
+    { href: "/study-materials", label: "Study Materials" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
-    <Link href={`/courses/${course.slug}`} className="block h-full">
-      <div className="bg-white border rounded-xl shadow hover:shadow-xl transition h-full overflow-hidden cursor-pointer group">
-        {/* Thumbnail */}
-        <div className="bg-gray-200 h-40 overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={course.thumbnail || "https://via.placeholder.com/400x160"}
-            alt={course.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-          />
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          {/* Category */}
-          {course.category && (
-            <div className="mb-2">
-              <span className="inline-block bg-violet-100 text-violet-700 text-xs font-semibold px-2 py-1 rounded">
-                {course.category}
+    <header className="sticky top-0 z-50 bg-white shadow-md backdrop-blur-sm bg-opacity-95 border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          
+          {/* ✅ LOGO + BRAND */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Link href="/" className="flex items-center gap-2 group">
+              <Image
+                src="/logo.png"
+                alt="E-Kalavya Logo"
+                width={40}
+                height={40}
+                priority
+                className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12"
+              />
+              <span className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-violet-800 bg-clip-text text-transparent group-hover:from-violet-700 group-hover:to-violet-900 transition-all">
+                E-Kalavya
               </span>
-            </div>
-          )}
+            </Link>
+          </motion.div>
 
-          {/* Title */}
-          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-violet-700 transition">
-            {course.title}
-          </h3>
+          {/* Desktop navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link, idx) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: idx * 0.05 }}
+              >
+                <Link href={link.href} className={linkClass(pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href)))}>
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
 
-          {/* Short Description */}
-          {course.short && (
-            <p className="text-gray-600 text-sm mb-4">
-              {course.short}
-            </p>
-          )}
+          {/* Auth buttons */}
+          <div className="flex items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <Link
+                href="/signup"
+                className="hidden sm:inline-block px-5 py-2 rounded-full bg-violet-700 text-white font-semibold hover:bg-violet-800 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Sign up
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.25 }}
+            >
+              <Link
+                href="/login"
+                className="hidden sm:inline-block px-5 py-2 rounded-full border-2 border-violet-700 text-violet-700 font-semibold hover:bg-violet-50 transition-all duration-300 transform hover:scale-105"
+              >
+                Login
+              </Link>
+            </motion.div>
 
-          {/* Syllabus */}
-          <div className="mb-4">
-            <p className="text-xs text-gray-500 mb-1">Topics:</p>
-            <div className="flex flex-wrap gap-1">
-              {syllabus.slice(0, 3).map((topic) => (
-                <span
-                  key={topic}
-                  className="text-xs bg-yellow-400 text-violet-900 px-2 py-1 rounded font-semibold"
-                >
-                  {topic}
-                </span>
-              ))}
-
-              {syllabus.length > 3 && (
-                <span className="text-xs bg-yellow-500 text-violet-900 px-2 py-1 rounded font-semibold">
-                  +{syllabus.length - 3}
-                </span>
-              )}
-
-              {syllabus.length === 0 && (
-                <span className="text-xs text-gray-500">
-                  Syllabus coming soon
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="flex justify-between items-center pt-4 border-t">
-            <div>
-              <p className="text-gray-500 text-xs">Price</p>
-              <p className="text-xl font-bold text-violet-700">
-                {priceText}
-              </p>
-            </div>
-
-            <div className="text-right">
-              <p className="text-gray-500 text-xs">Duration</p>
-              <p className="font-semibold text-gray-900">
-                {durationText}
-              </p>
-            </div>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <motion.div
+            className="md:hidden border-t border-gray-100 py-4 space-y-3 bg-white"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`block px-4 py-2 rounded-lg transition-all ${
+                  pathname === link.href || pathname.startsWith(link.href)
+                    ? "bg-violet-100 text-violet-700 font-semibold"
+                    : "text-slate-700 hover:bg-gray-100"
+                }`}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/signup"
+              className="block px-4 py-2 rounded-lg bg-violet-700 text-white font-semibold text-center hover:bg-violet-800 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Sign up
+            </Link>
+            <Link
+              href="/login"
+              className="block px-4 py-2 rounded-lg border-2 border-violet-700 text-violet-700 font-semibold text-center hover:bg-violet-50 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
+            </Link>
+          </motion.div>
+        )}
       </div>
-    </Link>
+    </header>
   );
 }

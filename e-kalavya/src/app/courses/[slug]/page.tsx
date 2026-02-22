@@ -4,6 +4,7 @@ import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getCourse, CourseDoc } from "@/lib/firestoreClient";
+import { COURSE_BOARDS } from "@/lib/courses";
 import { enrollWithWallet } from "@/lib/enrollmentClient";
 import useAuth from "@/hooks/useAuth";
 import { getWalletBalance } from "@/lib/walletClient";
@@ -113,57 +114,105 @@ export default function CourseDetailPage({
         {course.short}
       </p>
 
-      {/* ===== PLAN SELECTOR ===== */}
-      <div className="flex justify-center gap-4 mt-10 mb-10">
-        <button
-          onClick={() => setPlan("monthly")}
-          className={`px-8 py-3 rounded-lg font-semibold transition
+      {/* ===== CONDITIONAL: Board-only courses show subjects only ===== */}
+      {
+        (() => {
+          const BOARD_NAMES = ["Matric Board", "CBSE Board", "ICSE Board"];
+
+          const slugToCheck = course.slug || decodedSlug;
+
+          const isBoardCourse = COURSE_BOARDS.some((b) =>
+            BOARD_NAMES.includes(b.board) && b.courses.some((c) => c.slug === slugToCheck)
+          ) || /^(matric-|cbse-|icse-)/.test(slugToCheck);
+
+          const subjects = (course.syllabus && course.syllabus.length)
+            ? course.syllabus
+            : (() => {
+                for (const b of COURSE_BOARDS) {
+                  // typed to only read slug & subjects (these fields exist in our data)
+                  for (const c of b.courses as { slug: string; subjects?: string[] }[]) {
+                    if (c.slug === slugToCheck && Array.isArray(c.subjects)) return c.subjects as string[];
+                  }
+                }
+                return [] as string[];
+              })();
+
+          if (isBoardCourse) {
+            return (
+              <section className="mt-10">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Subjects</h3>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                  {subjects && subjects.length ? (
+                    subjects.map((s) => (
+                      <div key={s} className="bg-white rounded-xl border shadow-sm p-3 text-center text-violet-700 font-semibold">
+                        {s}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-600">No subjects listed.</p>
+                  )}
+                </div>
+
+                <div className="text-center mt-8">
+                  <Link href="/courses" className="text-purple-700 font-semibold hover:underline">← Back to courses</Link>
+                </div>
+              </section>
+            );
+          }
+
+          return (
+            <>
+              {/* ===== PLAN SELECTOR ===== */}
+              <div className="flex justify-center gap-4 mt-10 mb-10">
+                <button
+                  onClick={() => setPlan("monthly")}
+                  className={`px-8 py-3 rounded-lg font-semibold transition
             ${
               plan === "monthly"
                 ? "bg-yellow-500 text-black"
                 : "bg-yellow-100 text-yellow-800"
             }`}
-        >
-          Monthly ₹{course.pricing.monthly}
-        </button>
+                >
+                  Monthly ₹{course.pricing.monthly}
+                </button>
 
-        <button
-          onClick={() => setPlan("annual")}
-          className={`px-8 py-3 rounded-lg font-semibold transition
+                <button
+                  onClick={() => setPlan("annual")}
+                  className={`px-8 py-3 rounded-lg font-semibold transition
             ${
               plan === "annual"
                 ? "bg-purple-700 text-white"
                 : "bg-purple-100 text-purple-800"
             }`}
-        >
-          Annual ₹{course.pricing.annual}
-        </button>
-      </div>
+                >
+                  Annual ₹{course.pricing.annual}
+                </button>
+              </div>
 
-      {/* ===== ENROLL BUTTON ===== */}
-      <div className="flex justify-center mt-8 mb-16">
-        <button
-          onClick={handleEnroll}
-          disabled={enrolling}
-          className={`px-12 py-4 rounded-xl font-semibold transition
+              {/* ===== ENROLL BUTTON ===== */}
+              <div className="flex justify-center mt-8 mb-16">
+                <button
+                  onClick={handleEnroll}
+                  disabled={enrolling}
+                  className={`px-12 py-4 rounded-xl font-semibold transition
             ${
               plan === "monthly"
                 ? "bg-yellow-500 hover:bg-yellow-600 text-black"
                 : "bg-purple-700 hover:bg-purple-800 text-white"
             }`}
-        >
-          {enrolling ? "Processing..." : `Enroll ₹${price}`}
-        </button>
-      </div>
+                >
+                  {enrolling ? "Processing..." : `Enroll ₹${price}`}
+                </button>
+              </div>
 
-      <div className="text-center mt-8">
-        <Link
-          href="/courses"
-          className="text-purple-700 font-semibold hover:underline"
-        >
-          ← Back to courses
-        </Link>
-      </div>
+              <div className="text-center mt-8">
+                <Link href="/courses" className="text-purple-700 font-semibold hover:underline">← Back to courses</Link>
+              </div>
+            </>
+          );
+        })()
+      }
     </main>
   );
 }

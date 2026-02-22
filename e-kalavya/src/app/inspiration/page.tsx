@@ -54,7 +54,7 @@ export default function InspirationPage() {
               <p className="text-gray-700 text-[17px] leading-8 mb-8">
                 As the founder of{" "}
                 <span className="font-semibold text-violet-700">
-                  E-KALAVYA
+                  E-Kalavya 
                 </span>
                 , I strive to carry forward his legacy by nurturing students not only
                 academically, but also morally and ethically.

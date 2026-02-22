@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function AboutFounder() {
   return (
-    <section className="bg-gradient-to-br from-violet-50 to-white py-20">
+    <section className="bg-linear-to-br from-violet-50 to-white py-20">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
 
         {/* LEFT CONTENT */}
@@ -69,7 +69,7 @@ export default function AboutFounder() {
           className="flex justify-center"
         >
           <Image
-            src="/BP.png"
+            src="/BanuPriya.png"
             alt="Founder of E-Kalavya"
             width={420}
             height={520}
